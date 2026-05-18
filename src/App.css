@@ -1,0 +1,106 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f6ff;
+}
+
+/* основной контейнер */
+div {
+  box-sizing: border-box;
+}
+
+/* общий отступ страницы */
+.app-container {
+  padding: 20px;
+}
+
+/* заголовок */
+h1 {
+  text-align: center;
+  color: #222;
+  font-size: 26px;
+}
+
+/* вопрос */
+h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+/* кнопки */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+button:hover {
+  background: #4facfe;
+  color: white;
+  transform: scale(1.02);
+}
+
+/* блок вопроса */
+.question-box {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* результат */
+.result-box {
+  max-width: 700px;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* правильный */
+.correct {
+  background: #d4edda;
+}
+
+/* неправильный */
+.wrong {
+  background: #f8d7da;
+}
+
+/* текст */
+.green {
+  color: green;
+  font-weight: bold;
+}
+
+.red {
+  color: red;
+  font-weight: bold;
+}
+
+/* прогресс */
+p {
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}
+
+/* 📱 адаптивность */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 20px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
