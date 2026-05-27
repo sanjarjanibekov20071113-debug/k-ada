@@ -1,106 +1,310 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f2f6ff;
+/* ==========================================
+   БАЗОВЫЕ НАСТРОЙКИ И ТЕМНЫЙ КРУТОЙ ФОН
+   ========================================== */
+:root {
+  --bg-main: #0f172a;       /* Глубокий темно-синий */
+  --bg-card: #1e293b;       /* Цвет карточек */
+  --text-main: #f8fafc;     /* Чистый белый для идеальной читаемости */
+  --text-muted: #94a3b8;    /* Серый для второстепенного текста */
+  --primary: #38bdf8;       /* Неоново-голубой для акцентов */
+  --success: #4ade80;       /* Ярко-зеленый (правильный ответ) */
+  --error: #f87171;         /* Ярко-красный (неправильный ответ) */
+  --radius: 16px;
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* основной контейнер */
-div {
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Контейнер приложения */
+.app-container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px 16px; /* Небольшие отступы по бокам для мобилок */
   box-sizing: border-box;
 }
 
-/* общий отступ страницы */
-.app-container {
-  padding: 20px;
+/* Общий стиль для всех страниц (карточек) */
+.page {
+  background: var(--bg-card);
+  padding: 40px 30px;
+  border-radius: var(--radius);
+  border: 1px solid #334155;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.4s ease-out;
 }
 
-/* заголовок */
-h1 {
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================
+   ГЛАВНАЯ СТРАНИЦА (МЕНЮ)
+   ========================================== */
+.main-page {
   text-align: center;
-  color: #222;
-  font-size: 26px;
 }
 
-/* вопрос */
-h2 {
-  font-size: 20px;
-  margin-bottom: 15px;
-}
-
-/* кнопки */
-button {
-  width: 100%;
-  padding: 12px;
+.main-page h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  background: linear-gradient(to right, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 10px;
-  border: none;
-  border-radius: 10px;
-  background: #ffffff;
-  cursor: pointer;
-  font-size: 16px;
-  transition: 0.2s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-button:hover {
-  background: #4facfe;
-  color: white;
-  transform: scale(1.02);
+.main-page p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  margin-bottom: 35px;
 }
 
-/* блок вопроса */
-.question-box {
-  max-width: 700px;
+/* Меню выбора режимов */
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 440px;
   margin: 0 auto;
 }
 
-/* результат */
-.result-box {
-  max-width: 700px;
-  margin: 10px auto;
-  padding: 10px;
+/* ==========================================
+   КНОПКИ И ИНТЕРАКТИВ
+   ========================================== */
+.btn {
+  padding: 18px 24px;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(56, 189, 248, 0.2);
+}
+
+.btn:active {
+  transform: translateY(-1px);
+}
+
+/* Кастомные цвета для кнопок меню */
+.btn-study { background: linear-gradient(135deg, #0284c7, #0369a1); color: #fff; }
+.btn-test { background: linear-gradient(135deg, #16a34a, #15803d); color: #fff; }
+.btn-random { background: linear-gradient(135deg, #7c3aed, #6d28d9); color: #fff; }
+
+.btn-submit {
+  background: linear-gradient(135deg, #ea580c, #c2410c);
+  color: #fff;
+  width: 100%;
+  margin-top: 30px;
+  font-size: 1.1rem;
+}
+.btn-submit:disabled {
+  background: #334155;
+  color: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-retry {
+  background: #475569;
+  color: #fff;
+  margin: 15px auto 0 auto;
+}
+.btn-retry:hover { background: #64748b; }
+
+/* Кнопка "Назад" */
+.btn-back {
+  background: #334155;
+  border: 1px solid #475569;
+  color: var(--text-main);
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+  margin-bottom: 25px;
+}
+.btn-back:hover {
+  background: #475569;
+  color: var(--primary);
+}
+
+/* ==========================================
+   КАРТОЧКИ С ВОПРОСАМИ
+   ========================================== */
+.card-question {
+  background: #1e293b;
+  border: 1px solid #334155;
+  padding: 24px;
+  border-radius: 14px;
+  margin-bottom: 24px;
+}
+
+.card-question h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* Режим изучения: список правильных ответов */
+.questions-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.questions-list li {
+  padding: 14px 18px;
+  margin-top: 10px;
   border-radius: 10px;
+  background: #111827;
+  border: 1px solid #1f2937;
+  color: var(--text-muted);
+  font-size: 0.95rem;
 }
 
-/* правильный */
-.correct {
-  background: #d4edda;
+.questions-list li.correct-answer {
+  background: rgba(74, 222, 128, 0.1);
+  border-color: rgba(74, 222, 128, 0.3);
+  color: var(--success);
+  font-weight: 600;
 }
 
-/* неправильный */
-.wrong {
-  background: #f8d7da;
+/* Сетка вариантов в режиме теста */
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
-/* текст */
-.green {
-  color: green;
-  font-weight: bold;
+.option-btn {
+  padding: 16px;
+  background: #0f172a;
+  border: 2px solid #334155;
+  color: var(--text-main);
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: var(--transition);
 }
 
-.red {
-  color: red;
-  font-weight: bold;
+.option-btn:hover:not(:disabled) {
+  border-color: var(--primary);
+  background: #1e293b;
 }
 
-/* прогресс */
-p {
+/* Выбранный вариант ответа (до проверки) */
+.option-btn.selected {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: var(--primary);
+  color: var(--primary);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+}
+
+/* ПОДСВЕТКА ОТВЕТОВ ПОСЛЕ НАЖАТИЯ "ЗАВЕРШИТЬ" */
+.option-btn.right {
+  background: rgba(74, 222, 128, 0.2) !important;
+  border-color: var(--success) !important;
+  color: var(--success) !important;
+  font-weight: 700;
+}
+
+.option-btn.wrong {
+  background: rgba(248, 113, 113, 0.15) !important;
+  border-color: var(--error) !important;
+  color: var(--error) !important;
+}
+
+/* Блок результатов */
+.results-box {
+  background: linear-gradient(135deg, #111827, #1e293b);
+  border: 2px solid var(--success);
+  padding: 30px;
+  border-radius: var(--radius);
   text-align: center;
-  font-size: 14px;
-  color: #555;
+  margin-top: 30px;
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.15);
 }
 
-/* 📱 адаптивность */
-@media (max-width: 600px) {
-  h1 {
-    font-size: 20px;
+.results-box h3 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: var(--success);
+}
+
+/* ==========================================
+   АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ ТЕЛЕФОНОВ
+   ========================================== */
+@media (max-width: 640px) {
+  .app-container {
+    padding: 12px 10px;
   }
 
-  h2 {
-    font-size: 16px;
+  .page {
+    padding: 24px 16px; /* Меньше внутренние отступы, чтобы текст не сжимался */
+    border-radius: 12px;
   }
 
-  button {
-    font-size: 14px;
-    padding: 10px;
+  .main-page h1 {
+    font-size: 1.7rem; /* Чуть меньше заголовок, чтобы помещался в одну-две строки */
+  }
+
+  .main-page p {
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+  }
+
+  .btn {
+    padding: 16px 20px; /* Крупные кнопки для удобного нажатия пальцем */
+    font-size: 0.95rem;
+  }
+
+  .card-question {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .card-question h3 {
+    font-size: 1.1rem; /* Буквы вопросов будут четко видны */
+    margin-bottom: 16px;
+  }
+
+  /* Важно: превращаем 2 колонки ответов в ОДНУ на мобилках */
+  .options-grid {
+    grid-template-columns: 1fr; 
+    gap: 10px;
+  }
+
+  .option-btn {
+    padding: 14px;
+    font-size: 0.95rem; /* Оптимальный размер букв для экрана смартфона */
+  }
+  
+  .results-box h3 {
+    font-size: 1.3rem;
   }
 }
